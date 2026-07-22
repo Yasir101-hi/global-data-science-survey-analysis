@@ -1,73 +1,114 @@
-# Global Data Science Survey Analysis 2017–2021
+# Global Data Science Survey Analysis | 2017–2021
 
-## Project Overview
+A reproducible Python analysis of **106,301 Kaggle survey responses** across five annual Machine Learning & Data Science Survey editions, focused on participation, age, gender, geography, professional roles, education, and programming-language preferences.
 
-<p align="justify">
-This project analyzes Kaggle’s annual Machine Learning & Data Science Survey data from <b>2017 to 2021</b> to explore global trends in the data science community. The analysis focuses on respondent demographics, job titles, programming language preferences, gender representation, education, experience, salary patterns, and geographic participation.
-</p>
+![Age Group Distribution](images/age-group-distribution.png)
 
-<p align="justify">
-The objective of this project is to transform multi-year survey data into clear, meaningful insights that can support career planning, education strategy, workforce development, and inclusion initiatives in the data science and analytics field.
-</p>
+## Executive Snapshot
 
----
+| KPI | Verified result |
+|---|---:|
+| Survey editions | **5** |
+| Total responses | **106,301** |
+| Largest age group | **25–34: 39,892 (37.5%)** |
+| Largest country contribution | **India: 25,192 (23.7%)** |
+| Largest professional role | **Data Scientist: 17,128** |
+| Python recommended first | **66,892 responses** |
+| Python regular-use selections | **65,942** |
+| SQL regular-use selections | **33,090** |
 
-## Dataset
+> Counts across years represent survey responses, not necessarily unique individuals. The survey is voluntary and should not be treated as a census of the global data workforce.
 
-The project uses Kaggle survey data covering responses from data professionals, students, researchers, engineers, analysts, and other participants across different countries and experience levels.
+## Analytical Problem
 
-Dataset file included in this repository:
+Multi-year survey analysis is difficult because question wording, answer labels, available fields, and respondent composition change between editions. This project addresses:
 
-```text
-kaggle_survey_2017_2021.zip
-```
+- Which age groups and countries contributed the most responses?
+- Which professional roles appear most frequently?
+- Which languages are used and recommended most often?
+- How does participation differ by gender and geography?
+- What can be compared across years without overstating the evidence?
+- Which conclusions require more controlled analysis?
 
-> Note: Survey questions and answer formats may differ across years. The analysis focuses on selected comparable fields and standardized indicators where possible.
+## Dataset Scope
 
----
+| Year | Responses |
+|---|---:|
+| 2017 | 16,716 |
+| 2018 | 23,859 |
+| 2019 | 19,717 |
+| 2020 | 20,036 |
+| 2021 | 25,973 |
+| **Total** | **106,301** |
 
-## Key Analytical Questions
+The source archive is included as `kaggle_survey_2017_2021.zip`. The notebook loads the CSV directly from the ZIP and removes the embedded question-label row.
 
-This project was designed to answer questions such as:
+## Reproducible Workflow
 
-* Which age groups are most represented in the data science community?
-* Which countries have the highest number of survey respondents?
-* What are the most common job titles in the data science field?
-* How are job titles distributed across different age groups?
-* What gender representation patterns exist across top job roles?
-* How does gender distribution vary across age groups?
-* What insights can support education, inclusion, and career development in data science?
+1. Load the source ZIP using a repository-relative path.
+2. Remove the survey-question label row.
+3. Standardize comparable gender and country labels.
+4. Harmonize age bands correctly.
+5. Consolidate only clear job-title synonyms while preserving unmatched roles.
+6. Count multiple-selection language fields correctly.
+7. Build demographic, geographic, role, and language visualizations.
+8. Apply explicit interpretation boundaries to salary and participation results.
 
----
+The revised [Jupyter notebook](Survey_Project.ipynb) has cleared outputs and can be rerun against the published archive.
 
-## Tools & Technologies
+## Verified Findings
 
-* Python
-* Pandas
-* NumPy
-* Matplotlib
-* Seaborn
-* Jupyter Notebook
-* Data Cleaning
-* Exploratory Data Analysis
-* Survey Data Analysis
-* Data Visualization
+### Age participation
 
----
+- **25–34** was the largest harmonized age group with **39,892 responses (37.5%)**.
+- **18–24** followed with **34,821 responses (32.8%)**.
+- Together, these groups accounted for most recorded participation, but this reflects the survey sample—not necessarily the global workforce.
 
-## Analysis Workflow
+### Geography
 
-The project followed a structured data analysis workflow:
+- India contributed **25,192 responses (23.7%)**.
+- The United States contributed **16,885 responses (15.9%)**.
+- China, Russia, Brazil, and Japan were the next largest named country groups.
+- Country comparisons measure survey participation and should not be interpreted as national workforce size.
 
-1. Loaded and inspected multi-year Kaggle survey data
-2. Cleaned and prepared relevant columns for analysis
-3. Standardized selected demographic and professional variables
-4. Analyzed respondent distribution by age, gender, country, and job title
-5. Created visualizations to identify patterns and trends
-6. Interpreted findings and summarized key insights
-7. Developed recommendations related to skills, inclusion, and career development
+### Professional roles
 
----
+After preserving original values and consolidating only clear synonyms:
+
+| Role | Responses |
+|---|---:|
+| Student | 21,242 |
+| Data Scientist | 17,128 |
+| Software Engineer | 12,473 |
+| Data Analyst | 8,509 |
+| Research Scientist | 6,968 |
+| Business Analyst | 4,112 |
+| Machine Learning Engineer | 3,198 |
+
+**Data Scientist**, not Business Analyst, was the largest professional role in the corrected analysis.
+
+### Programming languages
+
+- Python was recommended first in **66,892 responses**.
+- Regular-use selections included **65,942 for Python**, **33,090 for SQL**, and **20,884 for R**.
+- Regular-use questions allow multiple selections, so these counts do not add to the number of respondents.
+
+### Gender participation
+
+- Among respondents selecting the harmonized binary categories, **82.0% were men** and **18.0% women**.
+- Other gender identities and disclosure preferences remain part of the source data but are excluded from this particular two-category percentage.
+- This finding describes survey participation, not the gender composition of the entire data profession.
+
+### Defined Arab-country subset
+
+For the explicitly selected countries Egypt, Morocco, Tunisia, Saudi Arabia, United Arab Emirates, Algeria, and Iraq:
+
+- The subset contained **2,292 responses**.
+- Egypt led with **945**.
+- Women represented **26.4%** of binary gender responses.
+- Students represented **497 responses (21.7%)**.
+
+This seven-country subset is not a complete representation of the Arab world.
 
 ## Visual Insights
 
@@ -75,125 +116,69 @@ The project followed a structured data analysis workflow:
 
 ![Age Group Distribution](images/age-group-distribution.png)
 
-### Top Countries by Number of Respondents
+### Top Countries
 
 ![Top Countries by Number of Respondents](images/top-countries-by-respondents.png)
 
-### Age Group Distribution by Job Title
+### Age by Professional Role
 
 ![Age Group by Job Title](images/age-group-by-job-title.png)
 
-### Gender Distribution by Job Title
+### Gender by Professional Role
 
 ![Gender Distribution by Job Title](images/gender-distribution-by-job-title.png)
 
-### Top Job Titles
+### Top Roles
 
 ![Top Job Titles](images/top-job-titles.png)
 
-### Gender Distribution
+### Gender Participation
 
 ![Gender Distribution](images/gender-distribution.png)
 
-### Age Group Distribution by Gender
+### Age by Gender
 
 ![Age Group by Gender](images/age-group-by-gender.png)
 
----
+## Interpretation and Recommendations
 
-## Key Findings
+1. Use Python and SQL as broad foundational skills, then specialize by target role.
+2. Report annual denominators when discussing trends across survey editions.
+3. Preserve original categories and document every harmonization rule.
+4. Treat participation gaps as signals for further study, not population estimates.
+5. Separate students and employed respondents in career and compensation analysis.
+6. Adjust salary comparisons for country, role, experience, education, and year before making pay-equity claims.
+7. Avoid causal conclusions from descriptive survey data.
 
-### 1. Young professionals dominate survey participation
+## Documentation
 
-<p align="justify">
-The largest group of respondents falls within the <b>18–25</b> age range, followed by the <b>36–45</b> group. This indicates strong participation from students, early-career professionals, and young data practitioners entering the data science field.
-</p>
+- [Verified KPI reference](docs/kpi-reference.md)
+- [Survey harmonization methodology](docs/methodology.md)
 
----
+These documents explain calculations, corrections, survey limitations, and reproducibility decisions.
 
-### 2. India and the United States lead global participation
+## Tools and Skills Demonstrated
 
-<p align="justify">
-India and the United States represent the highest number of respondents, showing their strong presence in the global data science and analytics community. Other countries such as China, Russia, Brazil, Japan, the United Kingdom, Germany, France, and Canada also show meaningful participation.
-</p>
-
----
-
-### 3. Business Analyst, Machine Learning Engineer, and Project Manager are among the top roles
-
-<p align="justify">
-The analysis shows that Business Analyst, Machine Learning Engineer, Project Manager, Software Engineer, Statistician, and Research Scientist are among the most common job titles in the dataset. This reflects the wide range of professional backgrounds contributing to the data science ecosystem.
-</p>
-
----
-
-### 4. Gender imbalance remains visible across top roles
-
-<p align="justify">
-The gender distribution analysis shows a clear imbalance, with male respondents representing a significantly larger share of the survey population compared to female respondents. This gap is also visible across several top job titles, including Business Analyst, Machine Learning Engineer, Project Manager, Software Engineer, and Statistician.
-</p>
-
----
-
-### 5. Age and role distribution reveal different career patterns
-
-<p align="justify">
-The age distribution by job title suggests that some roles attract younger respondents, while others show stronger representation from mid-career professionals. Roles such as Machine Learning Engineer and Business Analyst show strong participation across younger and mid-career age groups.
-</p>
-
----
-
-## Insights Summary
-
-* The data science community has strong participation from young professionals and students.
-* India and the United States are the leading countries by respondent count.
-* Business Analyst, Machine Learning Engineer, and Project Manager are among the most common roles.
-* Gender imbalance remains a major issue across the data science workforce.
-* Age distribution varies significantly by job title.
-* Survey analysis can help identify global workforce trends, inclusion gaps, and career development opportunities.
-
----
-
-## Recommendations
-
-Based on the analysis, the following recommendations are suggested:
-
-* Strengthen Python and data analysis training for students and early-career professionals.
-* Support career development programs for emerging data professionals in high-participation countries.
-* Promote inclusion initiatives to improve female participation in data science roles.
-* Encourage mentorship programs for underrepresented groups in analytics, AI, and machine learning.
-* Use survey insights to guide education providers, bootcamps, and workforce development programs.
-* Expand remote and international opportunities to connect talent from emerging markets with global employers.
-
----
-
-## Project Outcome
-
-<p align="justify">
-This project demonstrates the use of Python for real-world survey data analysis. It applies data cleaning, exploratory data analysis, and visualization techniques to uncover patterns in global data science participation, demographics, professional roles, and workforce representation.
-</p>
-
-The project highlights practical skills in:
-
-* Python data analysis
-* Survey data cleaning
-* Exploratory data analysis
-* Data visualization
-* Demographic analysis
-* Workforce trend analysis
-* Insight generation and reporting
-
----
+- Python and Pandas
+- NumPy
+- Matplotlib and Seaborn
+- Jupyter Notebook
+- Multi-year survey harmonization
+- Data cleaning and validation
+- Exploratory data analysis
+- Demographic and workforce analysis
+- Evidence-based reporting
 
 ## Repository Structure
 
 ```text
-Data-science-survey-analysis/
-│
+global-data-science-survey-analysis/
 ├── README.md
 ├── Survey_Project.ipynb
 ├── kaggle_survey_2017_2021.zip
-│
+├── docs/
+│   ├── kpi-reference.md
+│   └── methodology.md
 └── images/
     ├── age-group-distribution.png
     ├── top-countries-by-respondents.png
@@ -204,45 +189,27 @@ Data-science-survey-analysis/
     └── age-group-by-gender.png
 ```
 
----
+## How to Run
 
-## How to Use This Project
+1. Clone the repository.
+2. Create a Python environment with Pandas, NumPy, Matplotlib, Seaborn, and Jupyter.
+3. Start Jupyter from the repository root.
+4. Open `Survey_Project.ipynb`.
+5. Run all cells; the notebook reads the CSV directly from the included ZIP archive.
 
-1. Clone the repository:
+## Validation Note
 
-```bash
-git clone https://github.com/Yasir101-hi/Data-science-survey-analysis.git
-```
-
-2. Open the project folder.
-
-3. Extract the dataset file:
-
-```text
-kaggle_survey_2017_2021.zip
-```
-
-4. Open the notebook:
-
-```text
-Survey_Project.ipynb
-```
-
-5. Run the notebook cells to reproduce the analysis and visualizations.
-
----
+All exact values in this README were recomputed from the published combined CSV after removing the embedded question row. Salary midpoint outputs remain descriptive estimates and are not presented as causal evidence.
 
 ## Author
 
-**Yasir Awad**
+**Yasir Awad**  
 Data Analyst | Business Intelligence | Energy & Operations Analytics
 
-* LinkedIn: https://www.linkedin.com/in/yasirawad
-* GitHub: https://github.com/Yasir101-hi
-* Email: [yasir.petro.analytics@outlook.com](mailto:yasir.petro.analytics@outlook.com)
-
----
+- [GitHub](https://github.com/Yasir101-hi)
+- [LinkedIn](https://www.linkedin.com/in/yasirawad)
+- Email: [yasir.petro.analytics@outlook.com](mailto:yasir.petro.analytics@outlook.com)
 
 ## Project Status
 
-Completed. Future improvements may include adding more advanced salary analysis, regional comparisons, interactive dashboards, and additional year-by-year trend analysis.
+Completed and reproducible. Future improvements include year-specific trend tables, question-availability auditing, and controlled compensation analysis.
