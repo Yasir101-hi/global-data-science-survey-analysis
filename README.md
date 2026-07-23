@@ -1,8 +1,10 @@
 # Global Data Science Survey Analysis | 2017–2021
 
-A reproducible Python analysis of **106,301 Kaggle survey responses** across five annual Machine Learning & Data Science Survey editions, focused on participation, age, gender, geography, professional roles, education, and programming-language preferences.
+A reproducible Python analysis of **106,301 Kaggle survey responses** across five annual Machine Learning & Data Science Survey editions, focused on participation trends, age, gender, geography, professional roles, education, and programming-language preferences.
 
-![Age Group Distribution](images/age-group-distribution.png)
+![Survey participation by year](images/respondents_by_year.png)
+
+**[Download the five-page analytical report](docs/kaggle-data-science-survey-trends-report.pdf)**
 
 ## Executive Snapshot
 
@@ -10,9 +12,12 @@ A reproducible Python analysis of **106,301 Kaggle survey responses** across fiv
 |---|---:|
 | Survey editions | **5** |
 | Total responses | **106,301** |
+| Response growth, 2017 to 2021 | **55.4%** |
 | Largest age group | **25–34: 39,892 (37.5%)** |
 | Largest country contribution | **India: 25,192 (23.7%)** |
-| Largest professional role | **Data Scientist: 17,128** |
+| Largest non-student professional role | **Data Scientist: 17,128** |
+| Women among 2021 respondents | **18.8%** |
+| Python regular use in 2021 | **84.2%** |
 | Python recommended first | **66,892 responses** |
 | Python regular-use selections | **65,942** |
 | SQL regular-use selections | **33,090** |
@@ -41,7 +46,9 @@ Multi-year survey analysis is difficult because question wording, answer labels,
 | 2021 | 25,973 |
 | **Total** | **106,301** |
 
-The source archive is included as `kaggle_survey_2017_2021.zip`. The notebook loads the CSV directly from the ZIP and removes the embedded question-label row.
+The source archive is included as `kaggle_survey_2017_2021.zip`. Both notebooks load the CSV directly from the ZIP and remove the embedded question-label row.
+
+Source: [Kaggle Data Science Survey 2017–2021 merged dataset](https://www.kaggle.com/datasets/andradaolteanu/kaggle-data-science-survey-20172021).
 
 ## Reproducible Workflow
 
@@ -52,11 +59,25 @@ The source archive is included as `kaggle_survey_2017_2021.zip`. The notebook lo
 5. Consolidate only clear job-title synonyms while preserving unmatched roles.
 6. Count multiple-selection language fields correctly.
 7. Build demographic, geographic, role, and language visualizations.
-8. Apply explicit interpretation boundaries to salary and participation results.
+8. Build year-aware participation, language, role, and representation trend tables.
+9. Apply explicit interpretation boundaries to salary and participation results.
 
-The revised [Jupyter notebook](Survey_Project.ipynb) has cleared outputs and can be rerun against the published archive.
+The project now contains two complementary notebooks with cleared outputs:
+
+- [Demographic and workforce analysis](Survey_Project.ipynb)
+- [Year-over-year trend analysis](Survey_Trends_2017_2021.ipynb)
+
+Both notebooks can be rerun against the published archive.
 
 ## Verified Findings
+
+### Year-over-year trends
+
+- Participation increased from **16,716 responses in 2017** to **25,973 in 2021**, a net increase of **55.4%**.
+- Participation peaked in 2021 after a decline in 2019 and a modest recovery in 2020.
+- Python was selected for regular use by **84.2% of 2021 respondents**. Regular-use multi-select fields are unavailable for 2017, so this trend begins in 2018.
+- Women represented **16.6% of respondents in 2017** and **18.8% in 2021**, with a peak of **19.4% in 2020**.
+- Students were the largest 2021 role group at **26.2%**.
 
 ### Age participation
 
@@ -112,6 +133,26 @@ This seven-country subset is not a complete representation of the Arab world.
 
 ## Visual Insights
 
+### Participation by Year
+
+![Survey Participation by Year](images/respondents_by_year.png)
+
+### Programming-Language Trends
+
+![Programming Language Usage Trends](images/language_usage_trends.png)
+
+### Women’s Representation
+
+![Women Representation Trend](images/women_representation_trend.png)
+
+### 2021 Role Mix
+
+![Role Mix in 2021](images/role_mix_2021.png)
+
+### Top 2021 Countries
+
+![Top Countries in 2021](images/top_countries_2021.png)
+
 ### Age Group Distribution
 
 ![Age Group Distribution](images/age-group-distribution.png)
@@ -154,6 +195,9 @@ This seven-country subset is not a complete representation of the Arab world.
 
 - [Verified KPI reference](docs/kpi-reference.md)
 - [Survey harmonization methodology](docs/methodology.md)
+- [Trend-analysis methodology and limitations](docs/methodology-and-limitations.md)
+- [Data-quality report](docs/data-quality-report.md)
+- [Five-page PDF report](docs/kaggle-data-science-survey-trends-report.pdf)
 
 These documents explain calculations, corrections, survey limitations, and reproducibility decisions.
 
@@ -175,11 +219,26 @@ These documents explain calculations, corrections, survey limitations, and repro
 global-data-science-survey-analysis/
 ├── README.md
 ├── Survey_Project.ipynb
+├── Survey_Trends_2017_2021.ipynb
 ├── kaggle_survey_2017_2021.zip
+├── requirements.txt
+├── data/
+│   └── processed/
+│       ├── respondents_core.csv
+│       ├── language_usage_by_year.csv
+│       └── survey_summary_by_year.csv
 ├── docs/
 │   ├── kpi-reference.md
-│   └── methodology.md
+│   ├── methodology.md
+│   ├── methodology-and-limitations.md
+│   ├── data-quality-report.md
+│   └── kaggle-data-science-survey-trends-report.pdf
 └── images/
+    ├── respondents_by_year.png
+    ├── language_usage_trends.png
+    ├── women_representation_trend.png
+    ├── role_mix_2021.png
+    ├── top_countries_2021.png
     ├── age-group-distribution.png
     ├── top-countries-by-respondents.png
     ├── age-group-by-job-title.png
@@ -192,10 +251,10 @@ global-data-science-survey-analysis/
 ## How to Run
 
 1. Clone the repository.
-2. Create a Python environment with Pandas, NumPy, Matplotlib, Seaborn, and Jupyter.
+2. Install the dependencies with `python -m pip install -r requirements.txt`.
 3. Start Jupyter from the repository root.
-4. Open `Survey_Project.ipynb`.
-5. Run all cells; the notebook reads the CSV directly from the included ZIP archive.
+4. Open either `Survey_Project.ipynb` or `Survey_Trends_2017_2021.ipynb`.
+5. Run all cells; both notebooks read the CSV directly from the included ZIP archive.
 
 ## Validation Note
 
@@ -212,4 +271,4 @@ Data Analyst | Business Intelligence | Energy & Operations Analytics
 
 ## Project Status
 
-Completed and reproducible. Future improvements include year-specific trend tables, question-availability auditing, and controlled compensation analysis.
+Completed and reproducible. The repository includes demographic analysis, year-specific trends, processed summaries, portfolio-ready charts, and a validated PDF report. A controlled compensation model remains a possible future extension.
